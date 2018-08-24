@@ -1,5 +1,6 @@
 package com.kesatriakeyboard.kesatriamovie;
 
+import android.graphics.Movie;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -34,21 +35,14 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        Bundle extras = getIntent().getExtras();
-        String title = extras.getString("title");
-        String overview = extras.getString("overview");
-        String releaseDate = extras.getString("releaseDate");
-        String posterUrl = extras.getString("posterUrl");
-        String backdropUrl = extras.getString("backdropUrl");
-        String genres = extras.getString("genres");
-        float vote = extras.getFloat("voteAverage");
+        MovieItem item = getIntent().getParcelableExtra("MOVIE_ITEM");
 
-        textTitle.setText(title);
-        textOverview.setText(overview);
-        textReleaseDate.setText(releaseDate);
-        textGenres.setText(genres);
-        ratingBar.setRating(vote);
-        Picasso.get().load(posterUrl).into(imagePoster);
-        Picasso.get().load(backdropUrl).into(imageBackdrop);
+        textTitle.setText(item.getTitle());
+        textOverview.setText(item.getOverview());
+        textReleaseDate.setText(item.getReleaseDate());
+        textGenres.setText(Helper.getInstance().getGenres(item.getGenreIds()));
+        ratingBar.setRating(item.getVoteAverage());
+        Picasso.get().load(item.getPosterUrl()).into(imagePoster);
+        Picasso.get().load(item.getBackdropUrl()).into(imageBackdrop);
     }
 }

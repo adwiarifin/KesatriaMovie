@@ -67,16 +67,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
         MovieItem item = adapter.getItem(position);
         Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class);
-        detailIntent.putExtra("title", item.getTitle());
-        detailIntent.putExtra("overview", item.getOverview());
-        detailIntent.putExtra("releaseDate", item.getReleaseDate());
-        detailIntent.putExtra("posterUrl", item.getPosterUrl());
-        detailIntent.putExtra("backdropUrl", item.getBackdropUrl());
-        detailIntent.putExtra("genres", Helper.getInstance().getGenres(item.getGenreIds()));
-        detailIntent.putExtra("voteAverage", item.getVoteAverage());
+        detailIntent.putExtra("MOVIE_ITEM", item);
         startActivity(detailIntent);
     }
-
 
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int id, Bundle args) {

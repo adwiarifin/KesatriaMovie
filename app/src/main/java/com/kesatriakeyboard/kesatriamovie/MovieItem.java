@@ -1,5 +1,8 @@
 package com.kesatriakeyboard.kesatriamovie;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MovieItem {
+public class MovieItem implements Parcelable {
 
     private String title;
     private String overview;
@@ -44,6 +47,16 @@ public class MovieItem {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected MovieItem(Parcel parcel) {
+        this.title = parcel.readString();
+        this.overview = parcel.readString();
+        this.release_date = new Date(parcel.readLong());
+        this.posterPath = parcel.readString();
+        this.backdropPath = parcel.readString();
+        this.genreIds = parcel.createIntArray();
+        this.voteAverage = parcel.readFloat();
     }
 
     public String getPosterUrl() {
@@ -90,4 +103,32 @@ public class MovieItem {
     public float getVoteAverage() {
         return this.voteAverage / 2;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(this.title);
+        parcel.writeString(this.overview);
+        parcel.writeLong(this.release_date.getTime());
+        parcel.writeString(this.posterPath);
+        parcel.writeString(this.backdropPath);
+        parcel.writeIntArray(genreIds);
+        parcel.writeFloat(this.voteAverage);
+    }
+
+    public static final Parcelable.Creator<MovieItem> CREATOR = new Parcelable.Creator<MovieItem>() {
+        @Override
+        public MovieItem createFromParcel(Parcel parcel) {
+            return new MovieItem(parcel);
+        }
+
+        @Override
+        public MovieItem[] newArray(int size) {
+             return new MovieItem[size];
+        }
+    };
 }
