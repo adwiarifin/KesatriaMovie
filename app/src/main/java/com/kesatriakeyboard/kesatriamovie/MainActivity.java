@@ -1,7 +1,9 @@
 package com.kesatriakeyboard.kesatriamovie;
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,19 +13,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -31,15 +20,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
 
+    private static final String EXTRAS_QUERY = "EXTRAS_QUERY";
     private Context context;
-    private RequestQueue queue;
+
     private MovieAdapter adapter;
 
-    @BindView(R.id.listView) ListView listView;
-    @BindView(R.id.text_query) EditText textQuery;
-    @BindView(R.id.button_search) Button buttonSearch;
+    @BindView(R.id.listView)
+    ListView listView;
+    @BindView(R.id.text_query)
+    EditText textQuery;
+    @BindView(R.id.button_search)
+    Button buttonSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,52 +41,14 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         context = this;
-        queue = Volley.newRequestQueue(context);
         adapter = new MovieAdapter(context);
         listView.setAdapter(adapter);
-    }
 
-    private void getMovieList(String query) {
-        String apiKey = BuildConfig.API_KEY;
-        try {
-            query = URLEncoder.encode(query, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&language=en-US&query=" + query;
-        JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                VolleyLog.wtf(response.toString(), "utf-8");
+        String query = textQuery.getText().toString();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRAS_QUERY, query);
 
-                try {
-                    JSONArray results = response.getJSONArray("results");
-
-                    if (results.length() > 0) {
-                        ArrayList<MovieItem> movieItems = new ArrayList<>();
-                        for (int i = 0; i < results.length(); i++) {
-                            JSONObject item = results.getJSONObject(i);
-                            MovieItem movieItem = new MovieItem(item);
-                            movieItems.add(movieItem);
-                        }
-
-                        adapter.setData(movieItems);
-                    } else {
-                        Toast.makeText(context, "Film tak ditemukan, coba cari dengan kata kunci lain...", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("VolleyError", "Error: " + error.getMessage());
-                error.printStackTrace();
-            }
-        });
-
-        queue.add(request);
+        getLoaderManager().initLoader(0, bundle, this);
     }
 
     @OnClick(R.id.button_search)
@@ -102,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         if (query.length() < 4) {
             Toast.makeText(context, "Please input minimum 4 characters...", Toast.LENGTH_SHORT).show();
         } else {
-            getMovieList(query);
+            Bundle bundle = new Bundle();
+            bundle.putString(EXTRAS_QUERY, query);
+            getLoaderManager().restartLoader(0, bundle, MainActivity.this);
         }
     }
 
@@ -118,5 +75,26 @@ public class MainActivity extends AppCompatActivity {
         detailIntent.putExtra("genres", Helper.getInstance().getGenres(item.getGenreIds()));
         detailIntent.putExtra("voteAverage", item.getVoteAverage());
         startActivity(detailIntent);
+    }
+
+
+    @Override
+    public Loader<ArrayList<MovieItem>> onCreateLoader(int id, Bundle args) {
+        String query = "";
+        if (args != null) {
+            query = args.getString(EXTRAS_QUERY);
+        }
+
+        return new MovieLoader(this, query);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> data) {
+        adapter.setData(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<MovieItem>> loader) {
+        adapter.setData(null);
     }
 }

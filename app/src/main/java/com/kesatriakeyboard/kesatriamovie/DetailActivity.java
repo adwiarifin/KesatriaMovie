@@ -13,13 +13,20 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity {
 
-    @BindView(R.id.imagePoster) ImageView imagePoster;
-    @BindView(R.id.imageBackdrop) ImageView imageBackdrop;
-    @BindView(R.id.textTitle) TextView textTitle;
-    @BindView(R.id.textOverview) TextView textOverview;
-    @BindView(R.id.textDate) TextView textReleaseDate;
-    @BindView(R.id.textGenres) TextView textGenres;
-    @BindView(R.id.ratingBar) RatingBar ratingBar;
+    @BindView(R.id.imagePoster)
+    ImageView imagePoster;
+    @BindView(R.id.imageBackdrop)
+    ImageView imageBackdrop;
+    @BindView(R.id.textTitle)
+    TextView textTitle;
+    @BindView(R.id.textOverview)
+    TextView textOverview;
+    @BindView(R.id.textDate)
+    TextView textReleaseDate;
+    @BindView(R.id.textGenres)
+    TextView textGenres;
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

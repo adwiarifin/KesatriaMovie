@@ -21,7 +21,7 @@ public class MovieAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context context;
 
-    public MovieAdapter(Context context) {
+    MovieAdapter(Context context) {
         this.context = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -78,10 +78,14 @@ public class MovieAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @BindView(R.id.imagePoster) ImageView imagePoster;
-        @BindView(R.id.textTitle) TextView textTitle;
-        @BindView(R.id.textOverview) TextView textOverview;
-        @BindView(R.id.textDate) TextView textReleaseDate;
+        @BindView(R.id.imagePoster)
+        ImageView imagePoster;
+        @BindView(R.id.textTitle)
+        TextView textTitle;
+        @BindView(R.id.textOverview)
+        TextView textOverview;
+        @BindView(R.id.textDate)
+        TextView textReleaseDate;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
