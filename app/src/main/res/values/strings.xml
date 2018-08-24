@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kesatria Movie</string>
+    <string name="cari">Cari</string>
+    <string name="query_hint">Cari judul film</string>
+    <string name="overview">Overview:</string>
+    <string name="genres">Genre(s):</string>
+</resources>
