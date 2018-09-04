@@ -4,4 +4,12 @@
     <string name="query_hint">Cari judul film</string>
     <string name="overview">Overview:</string>
     <string name="genres">Genre(s):</string>
+
+    <string name="detail">Detail</string>
+    <string name="share">Share</string>
+
+    <string name="tools_title">Captain Marvel</string>
+    <string name="tools_overview_stripped">The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth...</string>
+    <string name="tools_overview_full">The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.</string>
+    <string name="tools_date_released">Wednesday, Nov 23, 2016</string>
 </resources>
