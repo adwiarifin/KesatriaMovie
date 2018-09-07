@@ -2,15 +2,13 @@ package com.kesatriakeyboard.kesatriamovie;
 
 import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,17 +16,16 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
+public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
 
     private static final String EXTRAS_QUERY = "EXTRAS_QUERY";
     private Context context;
 
-    private MovieAdapter adapter;
+    private MovieCardAdapter adapter;
 
-    @BindView(R.id.listView)
-    ListView listView;
+    @BindView(R.id.rv_movie)
+    RecyclerView rvMovie;
     @BindView(R.id.text_query)
     EditText textQuery;
     @BindView(R.id.button_search)
@@ -37,17 +34,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
 
         context = this;
-        adapter = new MovieAdapter(context);
-        listView.setAdapter(adapter);
+        adapter = new MovieCardAdapter(context);
+        rvMovie.setLayoutManager(new LinearLayoutManager(this));
+        rvMovie.setAdapter(adapter);
 
         String query = textQuery.getText().toString();
         Bundle bundle = new Bundle();
         bundle.putString(EXTRAS_QUERY, query);
-
         getLoaderManager().initLoader(0, bundle, this);
     }
 
@@ -59,16 +56,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             Bundle bundle = new Bundle();
             bundle.putString(EXTRAS_QUERY, query);
-            getLoaderManager().restartLoader(0, bundle, MainActivity.this);
+            getLoaderManager().restartLoader(0, bundle, SearchActivity.this);
         }
-    }
-
-    @OnItemClick(R.id.listView)
-    public void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
-        MovieItem item = adapter.getItem(position);
-        Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class);
-        detailIntent.putExtra("MOVIE_ITEM", item);
-        startActivity(detailIntent);
     }
 
     @Override
@@ -78,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             query = args.getString(EXTRAS_QUERY);
         }
 
-        return new MovieLoader(this, query);
+        return new MovieSearchLoader(context, query);
     }
 
     @Override

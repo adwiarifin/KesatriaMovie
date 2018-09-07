@@ -1,6 +1,7 @@
 package com.kesatriakeyboard.kesatriamovie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +33,13 @@ public class MovieCardAdapter extends RecyclerView.Adapter<MovieCardAdapter.Card
         notifyDataSetChanged();
     }
 
+    public MovieItem getMovieItem(int position) {
+        if (mData != null) {
+            return mData.get(position);
+        }
+        return null;
+    }
+
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,13 +48,30 @@ public class MovieCardAdapter extends RecyclerView.Adapter<MovieCardAdapter.Card
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CardViewHolder holder, int position) {
         String url = mData.get(position).getPosterUrl();
         Picasso.get().load(url).into(holder.imagePoster);
 
         holder.textTitle.setText(mData.get(position).getTitle());
         holder.textOverview.setText(mData.get(position).getOverviewStripped());
         holder.textReleaseDate.setText(mData.get(position).getReleaseDate());
+
+        holder.buttonDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MovieItem item = mData.get(holder.getAdapterPosition());
+                Intent detailIntent = new Intent(context, DetailActivity.class);
+                detailIntent.putExtra("MOVIE_ITEM", item);
+                context.startActivity(detailIntent);
+            }
+        });
+        holder.buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MovieItem item = mData.get(holder.getAdapterPosition());
+                Toast.makeText(context, "Share: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -16,14 +16,14 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MovieLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
+public class MovieSearchLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
 
     private ArrayList<MovieItem> mData;
     private boolean mHasResult = false;
 
     private String query;
 
-    MovieLoader(final Context context, String query) {
+    MovieSearchLoader(final Context context, String query) {
         super(context);
 
         onContentChanged();
