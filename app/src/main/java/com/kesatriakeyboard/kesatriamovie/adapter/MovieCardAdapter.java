@@ -1,4 +1,4 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
+import com.kesatriakeyboard.kesatriamovie.R;
+import com.kesatriakeyboard.kesatriamovie.activity.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

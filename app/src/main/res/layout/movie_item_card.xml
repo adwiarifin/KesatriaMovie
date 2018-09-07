@@ -11,7 +11,7 @@
     android:layout_marginRight="8dp"
     android:layout_marginTop="4dp"
     card_view:cardCornerRadius="4dp"
-    tools:context=".UpcomingActivity">
+    tools:context=".activity.UpcomingActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

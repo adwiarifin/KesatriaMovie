@@ -1,4 +1,4 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.tool;
 
 import android.util.SparseArray;
 
@@ -49,7 +49,7 @@ public class Helper {
         return result;
     }
 
-    public String getGenre(int genreId) {
+    private String getGenre(int genreId) {
         return genres.get(genreId);
     }
 }

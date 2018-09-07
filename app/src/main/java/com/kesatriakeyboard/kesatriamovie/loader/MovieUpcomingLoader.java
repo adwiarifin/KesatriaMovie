@@ -1,8 +1,10 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.loader;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.kesatriakeyboard.kesatriamovie.BuildConfig;
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -14,12 +16,12 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MovieNowplayingLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
+public class MovieUpcomingLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
 
     private ArrayList<MovieItem> mData;
     private boolean mHasResult = false;
 
-    MovieNowplayingLoader(final Context context) {
+    public MovieUpcomingLoader(final Context context) {
         super(context);
 
         onContentChanged();
@@ -55,7 +57,7 @@ public class MovieNowplayingLoader extends AsyncTaskLoader<ArrayList<MovieItem>>
     @Override
     public ArrayList<MovieItem> loadInBackground() {
         String apiKey = BuildConfig.API_KEY;
-        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + apiKey + "&language=en-US";
+        String url = "https://api.themoviedb.org/3/movie/upcoming?api_key=" + apiKey + "&language=en-US";
 
         final ArrayList<MovieItem> movieItems = new ArrayList<>();
         SyncHttpClient client = new SyncHttpClient();

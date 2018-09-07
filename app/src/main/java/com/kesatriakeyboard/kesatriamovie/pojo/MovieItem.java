@@ -1,4 +1,4 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.pojo;
 
 import android.os.Parcel;
 import android.os.Parcelable;

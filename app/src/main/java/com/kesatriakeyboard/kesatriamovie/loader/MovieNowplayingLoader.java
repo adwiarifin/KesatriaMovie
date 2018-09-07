@@ -1,8 +1,10 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.loader;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.kesatriakeyboard.kesatriamovie.BuildConfig;
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -10,24 +12,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MovieSearchLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
+public class MovieNowplayingLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
 
     private ArrayList<MovieItem> mData;
     private boolean mHasResult = false;
 
-    private String query;
-
-    MovieSearchLoader(final Context context, String query) {
+    public MovieNowplayingLoader(final Context context) {
         super(context);
 
         onContentChanged();
-        this.query = query;
     }
 
     @Override
@@ -60,12 +57,7 @@ public class MovieSearchLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
     @Override
     public ArrayList<MovieItem> loadInBackground() {
         String apiKey = BuildConfig.API_KEY;
-        try {
-            query = URLEncoder.encode(query, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&language=en-US&query=" + query;
+        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + apiKey + "&language=en-US";
 
         final ArrayList<MovieItem> movieItems = new ArrayList<>();
         SyncHttpClient client = new SyncHttpClient();

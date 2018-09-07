@@ -1,12 +1,14 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.activity;
 
-import android.graphics.Movie;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.kesatriakeyboard.kesatriamovie.tool.Helper;
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
+import com.kesatriakeyboard.kesatriamovie.R;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.kesatriakeyboard.kesatriamovie;
+package com.kesatriakeyboard.kesatriamovie.activity;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -10,6 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.kesatriakeyboard.kesatriamovie.adapter.MovieCardAdapter;
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
+import com.kesatriakeyboard.kesatriamovie.loader.MovieSearchLoader;
+import com.kesatriakeyboard.kesatriamovie.R;
 
 import java.util.ArrayList;
 
