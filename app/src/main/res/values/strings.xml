@@ -1,15 +1,26 @@
 <resources>
     <string name="app_name">Kesatria Movie</string>
-    <string name="cari">Cari</string>
-    <string name="query_hint">Cari judul film</string>
+    <string name="query_hint">Search movie title</string>
     <string name="overview">Overview:</string>
     <string name="genres">Genre(s):</string>
 
     <string name="detail">Detail</string>
     <string name="share">Share</string>
+    <string name="search">Search</string>
 
     <string name="tools_title">Captain Marvel</string>
     <string name="tools_overview_stripped">The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth...</string>
     <string name="tools_overview_full">The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.</string>
     <string name="tools_date_released">Wednesday, Nov 23, 2016</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Kesatria Movie</string>
+    <string name="nav_header_subtitle">adwi@kesatriakeyboard</string>
+    <string name="nav_header_desc">Kesatria Movie</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_nowplaying">Now Playing</string>
+    <string name="title_upcoming">Upcoming</string>
+    <string name="title_search">Search</string>
 </resources>
