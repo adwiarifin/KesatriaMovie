@@ -1,20 +1,25 @@
 package com.kesatriakeyboard.kesatriamovie.activity;
 
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Loader;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.kesatriakeyboard.kesatriamovie.adapter.MovieCardAdapter;
-import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
-import com.kesatriakeyboard.kesatriamovie.loader.MovieSearchLoader;
 import com.kesatriakeyboard.kesatriamovie.R;
+import com.kesatriakeyboard.kesatriamovie.adapter.MovieCardAdapter;
+import com.kesatriakeyboard.kesatriamovie.loader.MovieSearchLoader;
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
 
 import java.util.ArrayList;
 
@@ -22,9 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
+public class SearchFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
 
-    private static final String EXTRAS_QUERY = "EXTRAS_QUERY";
+    public static final String EXTRAS_QUERY = "EXTRAS_QUERY";
     private Context context;
 
     private MovieCardAdapter adapter;
@@ -36,21 +41,23 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @BindView(R.id.button_search)
     Button buttonSearch;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        ButterKnife.bind(this, view);
 
-        context = this;
+        context = getActivity();
         adapter = new MovieCardAdapter(context);
-        rvMovie.setLayoutManager(new LinearLayoutManager(this));
+        rvMovie.setLayoutManager(new LinearLayoutManager(context));
         rvMovie.setAdapter(adapter);
 
         String query = textQuery.getText().toString();
         Bundle bundle = new Bundle();
         bundle.putString(EXTRAS_QUERY, query);
         getLoaderManager().initLoader(0, bundle, this);
+
+        return view;
     }
 
     @OnClick(R.id.button_search)
@@ -61,7 +68,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         } else {
             Bundle bundle = new Bundle();
             bundle.putString(EXTRAS_QUERY, query);
-            getLoaderManager().restartLoader(0, bundle, SearchActivity.this);
+            getLoaderManager().restartLoader(0, bundle, SearchFragment.this);
         }
     }
 

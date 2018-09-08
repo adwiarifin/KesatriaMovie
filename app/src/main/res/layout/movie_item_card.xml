@@ -10,8 +10,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="4dp"
-    card_view:cardCornerRadius="4dp"
-    tools:context=".activity.UpcomingActivity">
+    card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"

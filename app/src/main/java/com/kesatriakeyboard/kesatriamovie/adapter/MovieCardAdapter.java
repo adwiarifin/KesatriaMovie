@@ -79,7 +79,10 @@ public class MovieCardAdapter extends RecyclerView.Adapter<MovieCardAdapter.Card
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        if (mData != null) {
+            return mData.size();
+        }
+        return 0;
     }
 
     class CardViewHolder extends RecyclerView.ViewHolder {

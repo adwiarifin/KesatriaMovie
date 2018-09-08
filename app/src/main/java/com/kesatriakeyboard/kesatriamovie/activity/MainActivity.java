@@ -2,6 +2,7 @@ package com.kesatriakeyboard.kesatriamovie.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -37,6 +38,15 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            getSupportActionBar().setTitle(getString(R.string.title_nowplaying));
+            Fragment currentFragment = new NowplayingFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_main, currentFragment)
+                    .commit();
+        }
     }
 
     @Override
@@ -68,19 +78,36 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        String title = "";
+        Fragment fragment = null;
+        Bundle bundle = new Bundle();
+
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_nowplaying:
-                toolbar.setTitle(getString(R.string.title_nowplaying));
+                title = getString(R.string.title_nowplaying);
+                fragment = new NowplayingFragment();
                 break;
             case R.id.nav_upcoming:
-                toolbar.setTitle(getString(R.string.title_upcoming));
+                title = getString(R.string.title_upcoming);
+                fragment = new UpcomingFragment();
                 break;
             case R.id.nav_search:
-                toolbar.setTitle(getString(R.string.title_search));
+                title = getString(R.string.title_search);
+                fragment = new SearchFragment();
+                bundle.putString(SearchFragment.EXTRAS_QUERY, "");
+                fragment.setArguments(bundle);
                 break;
         }
 
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_main, fragment)
+                    .commit();
+        }
+
+        toolbar.setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

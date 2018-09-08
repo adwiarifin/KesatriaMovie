@@ -1,7 +1,7 @@
 package com.kesatriakeyboard.kesatriamovie.loader;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.support.v4.content.AsyncTaskLoader;
 
 import com.kesatriakeyboard.kesatriamovie.BuildConfig;
 import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
