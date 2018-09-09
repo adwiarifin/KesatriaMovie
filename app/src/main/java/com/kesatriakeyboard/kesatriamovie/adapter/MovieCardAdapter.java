@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
 import com.kesatriakeyboard.kesatriamovie.R;
 import com.kesatriakeyboard.kesatriamovie.activity.DetailActivity;
+import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -72,7 +71,10 @@ public class MovieCardAdapter extends RecyclerView.Adapter<MovieCardAdapter.Card
             @Override
             public void onClick(View view) {
                 MovieItem item = mData.get(holder.getAdapterPosition());
-                Toast.makeText(context, "Share: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, item.getMovieUrl());
+                context.startActivity(Intent.createChooser(shareIntent, "Share link using"));
             }
         });
     }

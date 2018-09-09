@@ -13,6 +13,7 @@ import java.util.Locale;
 
 public class MovieItem implements Parcelable {
 
+    private int id;
     private String title;
     private String overview;
     private String posterPath;
@@ -21,13 +22,9 @@ public class MovieItem implements Parcelable {
     private int[] genreIds;
     private Date release_date;
 
-    private final String DEFAULT_POSTER_PATH = "https://via.placeholder.com/185x278?text=Poster+not+available";
-    private final String DEFAULT_BACKDROP_PATH = "https://via.placeholder.com/500x281?text=Backdrop+not+available";
-    private final String POSTER_PATH = "http://image.tmdb.org/t/p/w185";
-    private final String BACKDROP_PATH = "http://image.tmdb.org/t/p/w780";
-
     public MovieItem(JSONObject object) {
         try {
+            this.id = object.getInt("id");
             this.title = object.getString("title");
             this.overview = object.getString("overview");
             this.posterPath = object.getString("poster_path");
@@ -49,7 +46,8 @@ public class MovieItem implements Parcelable {
         }
     }
 
-    protected MovieItem(Parcel parcel) {
+    private MovieItem(Parcel parcel) {
+        this.id = parcel.readInt();
         this.title = parcel.readString();
         this.overview = parcel.readString();
         this.release_date = new Date(parcel.readLong());
@@ -59,18 +57,25 @@ public class MovieItem implements Parcelable {
         this.voteAverage = parcel.readFloat();
     }
 
+    public String getMovieUrl() {
+        String MOVIE_PATH = "http:/https://www.themoviedb.org/movie/";
+        return MOVIE_PATH + this.id;
+    }
+
     public String getPosterUrl() {
         if (this.posterPath != null) {
+            String POSTER_PATH = "http://image.tmdb.org/t/p/w185";
             return POSTER_PATH + this.posterPath;
         }
-        return DEFAULT_POSTER_PATH;
+        return "https://via.placeholder.com/185x278?text=Poster+not+available";
     }
 
     public String getBackdropUrl() {
         if (this.backdropPath != null) {
+            String BACKDROP_PATH = "http://image.tmdb.org/t/p/w780";
             return BACKDROP_PATH + this.backdropPath;
         }
-        return DEFAULT_BACKDROP_PATH;
+        return "https://via.placeholder.com/500x281?text=Backdrop+not+available";
     }
 
     public String getTitle() {
@@ -111,6 +116,7 @@ public class MovieItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(this.id);
         parcel.writeString(this.title);
         parcel.writeString(this.overview);
         parcel.writeLong(this.release_date.getTime());
