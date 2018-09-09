@@ -7,28 +7,15 @@
         <item
             android:id="@+id/nav_nowplaying"
             android:icon="@drawable/ic_nowplaying"
-            android:title="Now Playing" />
+            android:title="@string/title_nowplaying" />
         <item
             android:id="@+id/nav_upcoming"
             android:icon="@drawable/ic_upcoming"
-            android:title="Upcoming" />
+            android:title="@string/title_upcoming" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
-            android:title="Search" />
+            android:title="@string/title_search" />
     </group>
-
-    <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        <!--</menu>-->
-    <!--</item>-->
 
 </menu>

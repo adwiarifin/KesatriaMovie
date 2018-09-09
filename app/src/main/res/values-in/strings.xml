@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Kesatria Movie</string>
+    <string name="query_hint">Cari judul film</string>
+    <string name="overview">Sinopsis:</string>
+    <string name="genres">Jenis film:</string>
+
+    <string name="detail">Detil</string>
+    <string name="share">Bagi</string>
+    <string name="search">Cari</string>
+
+    <string name="navigation_drawer_open">Buka laci navigasi</string>
+    <string name="navigation_drawer_close">Tutup laci navigasi</string>
+    <string name="nav_header_title">Kesatria Movie</string>
+    <string name="nav_header_subtitle">adwi@kesatriakeyboard</string>
+    <string name="nav_header_desc">Kesatria Movie</string>
+    <string name="action_settings">Pengaturan</string>
+
+    <string name="title_nowplaying">Tayang</string>
+    <string name="title_upcoming">Segera</string>
+    <string name="title_search">Cari</string>
+</resources>
