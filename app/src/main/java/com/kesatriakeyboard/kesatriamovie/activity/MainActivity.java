@@ -1,6 +1,7 @@
 package com.kesatriakeyboard.kesatriamovie.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -12,12 +13,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kesatriakeyboard.kesatriamovie.R;
+import com.kesatriakeyboard.kesatriamovie.tool.Helper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final int LOADER_ID_NOWPLAYING = 0x001;
+    public static final int LOADER_ID_UPCOMING = 0x010;
+    public static final int LOADER_ID_SEARCH = 0x100;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         String title = "";
         Fragment fragment = null;
         Bundle bundle = new Bundle();
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_search:
                 title = getString(R.string.title_search);
                 fragment = new SearchFragment();
-                bundle.putString(SearchFragment.EXTRAS_QUERY, "");
+                bundle.putString(SearchFragment.EXTRAS_QUERY, Helper.getInstance().getQuery());
                 fragment.setArguments(bundle);
                 break;
         }

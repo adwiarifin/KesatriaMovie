@@ -20,6 +20,7 @@ import com.kesatriakeyboard.kesatriamovie.R;
 import com.kesatriakeyboard.kesatriamovie.adapter.MovieCardAdapter;
 import com.kesatriakeyboard.kesatriamovie.loader.MovieSearchLoader;
 import com.kesatriakeyboard.kesatriamovie.pojo.MovieItem;
+import com.kesatriakeyboard.kesatriamovie.tool.Helper;
 
 import java.util.ArrayList;
 
@@ -52,10 +53,15 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         rvMovie.setLayoutManager(new LinearLayoutManager(context));
         rvMovie.setAdapter(adapter);
 
-        String query = textQuery.getText().toString();
+        String query = "";
+        if (getArguments() != null) {
+            query = getArguments().getString(EXTRAS_QUERY);
+            textQuery.setText(query);
+        }
         Bundle bundle = new Bundle();
         bundle.putString(EXTRAS_QUERY, query);
-        getLoaderManager().initLoader(0, bundle, this);
+
+        getLoaderManager().initLoader(MainActivity.LOADER_ID_SEARCH, bundle, this);
 
         return view;
     }
@@ -66,6 +72,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         if (query.length() < 4) {
             Toast.makeText(context, "Please input minimum 4 characters...", Toast.LENGTH_SHORT).show();
         } else {
+            Helper.getInstance().setQuery(query);
             Bundle bundle = new Bundle();
             bundle.putString(EXTRAS_QUERY, query);
             getLoaderManager().restartLoader(0, bundle, SearchFragment.this);

@@ -6,6 +6,7 @@ public class Helper {
 
     private SparseArray<String> genres;
     private static Helper helper;
+    private String query;
 
     private Helper() {
         genres = new SparseArray<String>();
@@ -28,6 +29,8 @@ public class Helper {
         genres.put(53, "thriller");
         genres.put(37, "western");
         genres.put(12, "adventure");
+
+        query = "";
     }
 
     public static Helper getInstance() {
@@ -51,5 +54,13 @@ public class Helper {
 
     private String getGenre(int genreId) {
         return genres.get(genreId);
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getQuery() {
+        return this.query;
     }
 }

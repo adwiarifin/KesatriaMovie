@@ -43,7 +43,7 @@ public class NowplayingFragment extends Fragment implements LoaderManager.Loader
         rvMovie.setAdapter(adapter);
 
         Bundle bundle = new Bundle();
-        getLoaderManager().initLoader(0, bundle, this);
+        getLoaderManager().initLoader(MainActivity.LOADER_ID_NOWPLAYING, bundle, this);
 
         return view;
     }

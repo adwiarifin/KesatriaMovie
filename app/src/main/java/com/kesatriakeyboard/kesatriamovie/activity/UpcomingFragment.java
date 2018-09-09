@@ -43,13 +43,14 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
         rvMovie.setAdapter(adapter);
 
         Bundle bundle = new Bundle();
-        getLoaderManager().initLoader(0, bundle, this);
+        getLoaderManager().initLoader(MainActivity.LOADER_ID_UPCOMING, bundle, this);
 
         return view;
     }
 
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle bundle) {
+        System.out.println("Upcoming Loader invoked");
         return new MovieUpcomingLoader(context);
     }
 
