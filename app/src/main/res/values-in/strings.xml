@@ -10,9 +10,6 @@
 
     <string name="navigation_drawer_open">Buka laci navigasi</string>
     <string name="navigation_drawer_close">Tutup laci navigasi</string>
-    <string name="nav_header_title">Kesatria Movie</string>
-    <string name="nav_header_subtitle">adwi@kesatriakeyboard</string>
-    <string name="nav_header_desc">Kesatria Movie</string>
     <string name="action_settings">Pengaturan</string>
 
     <string name="title_nowplaying">Tayang</string>
