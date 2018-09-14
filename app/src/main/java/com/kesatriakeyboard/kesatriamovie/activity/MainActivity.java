@@ -2,6 +2,7 @@ package com.kesatriakeyboard.kesatriamovie.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.kesatriakeyboard.kesatriamovie.R;
 import com.kesatriakeyboard.kesatriamovie.tool.Helper;
@@ -23,9 +25,10 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final int LOADER_ID_NOWPLAYING = 0x001;
-    public static final int LOADER_ID_UPCOMING = 0x010;
-    public static final int LOADER_ID_SEARCH = 0x100;
+    public static final int LOADER_ID_NOWPLAYING = 0x0001;
+    public static final int LOADER_ID_UPCOMING = 0x0010;
+    public static final int LOADER_ID_SEARCH = 0x0100;
+    public static final int LOADER_ID_FAVOURITE = 0x1000;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawer;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,21 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
 
@@ -106,6 +125,10 @@ public class MainActivity extends AppCompatActivity
                 fragment = new SearchFragment();
                 bundle.putString(SearchFragment.EXTRAS_QUERY, Helper.getInstance().getQuery());
                 fragment.setArguments(bundle);
+                break;
+            case R.id.nav_favourite:
+                title = getString(R.string.title_favourite);
+                fragment = new FavouriteFragment();
                 break;
             case R.id.action_settings:
                 Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);

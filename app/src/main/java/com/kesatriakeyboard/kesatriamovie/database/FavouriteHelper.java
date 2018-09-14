@@ -28,7 +28,7 @@ public class FavouriteHelper {
 
     private SQLiteDatabase db;
 
-    public FavouriteHelper(Context context) {
+    FavouriteHelper(Context context) {
         this.context = context;
     }
 
@@ -102,7 +102,7 @@ public class FavouriteHelper {
 
     public Cursor queryByIdProvider(String id) {
         return db.query(TABLE_FAVOURITE, null
-                , _ID + " = ?"
+                , MOVIE_ID + " = ?"
                 , new String[]{id}
                 , null
                 , null
@@ -129,6 +129,6 @@ public class FavouriteHelper {
     }
 
     public int deleteProvider(String id) {
-        return db.delete(TABLE_FAVOURITE, _ID + " = ?", new String[]{id});
+        return db.delete(TABLE_FAVOURITE, MOVIE_ID + " = ?", new String[]{id});
     }
 }

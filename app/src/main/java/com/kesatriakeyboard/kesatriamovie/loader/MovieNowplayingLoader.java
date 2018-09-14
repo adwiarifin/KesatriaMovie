@@ -1,6 +1,5 @@
 package com.kesatriakeyboard.kesatriamovie.loader;
 
-//import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
@@ -24,7 +23,6 @@ public class MovieNowplayingLoader extends AsyncTaskLoader<ArrayList<MovieItem>>
 
     public MovieNowplayingLoader(final Context context) {
         super(context);
-
         onContentChanged();
     }
 
