@@ -107,6 +107,10 @@ public class MainActivity extends AppCompatActivity
                 bundle.putString(SearchFragment.EXTRAS_QUERY, Helper.getInstance().getQuery());
                 fragment.setArguments(bundle);
                 break;
+            case R.id.action_settings:
+                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(mIntent);
+                break;
         }
 
         if (fragment != null) {

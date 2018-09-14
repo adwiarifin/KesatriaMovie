@@ -13,13 +13,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static String CREATE_TABLE_FAVOURITE = String.format(
             "CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "%s INTEGER UNIQUE," +
-                    "%s TEXT NOT NULL," +
-                    "%s TEXT NOT NULL" +
-                    "%s TEXT NOT NULL" +
-                    "%s TEXT NOT NULL," +
-                    "%s TEXT NOT NULL," +
-                    "%s TEXT NOT NULL," +
+                    "%s INTEGER UNIQUE, " +
+                    "%s TEXT NOT NULL, " +
+                    "%s TEXT NOT NULL, " +
+                    "%s TEXT NOT NULL, " +
+                    "%s TEXT NOT NULL, " +
+                    "%s TEXT NOT NULL, " +
+                    "%s TEXT NOT NULL, " +
                     "%s REAL);",
             DatabaseContract.TABLE_FAVOURITE,
             DatabaseContract.FavouriteTable._ID,
