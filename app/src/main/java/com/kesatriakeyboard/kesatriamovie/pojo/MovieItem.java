@@ -1,7 +1,10 @@
 package com.kesatriakeyboard.kesatriamovie.pojo;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.kesatriakeyboard.kesatriamovie.database.DatabaseContract;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.kesatriakeyboard.kesatriamovie.database.DatabaseContract.getColumnFloat;
+import static com.kesatriakeyboard.kesatriamovie.database.DatabaseContract.getColumnInt;
+import static com.kesatriakeyboard.kesatriamovie.database.DatabaseContract.getColumnString;
 
 public class MovieItem implements Parcelable {
 
@@ -67,17 +74,6 @@ public class MovieItem implements Parcelable {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    private MovieItem(Parcel parcel) {
-        this.id = parcel.readInt();
-        this.title = parcel.readString();
-        this.overview = parcel.readString();
-        this.release_date = new Date(parcel.readLong());
-        this.posterPath = parcel.readString();
-        this.backdropPath = parcel.readString();
-        this.genreIds = parcel.createIntArray();
-        this.voteAverage = parcel.readFloat();
     }
 
     public int getMovieId() {
@@ -156,6 +152,42 @@ public class MovieItem implements Parcelable {
         return this.voteAverage / 2;
     }
 
+
+    public MovieItem(Cursor cursor) {
+        try {
+            this.id = getColumnInt(cursor, DatabaseContract.FavouriteTable.MOVIE_ID);
+            this.title = getColumnString(cursor, DatabaseContract.FavouriteTable.TITLE);
+            this.overview = getColumnString(cursor, DatabaseContract.FavouriteTable.OVERVIEW);
+            this.posterPath = getColumnString(cursor, DatabaseContract.FavouriteTable.POSTER_PATH);
+            this.backdropPath = getColumnString(cursor, DatabaseContract.FavouriteTable.BACKDROP_PATH);
+            this.voteAverage = getColumnFloat(cursor, DatabaseContract.FavouriteTable.VOTE_AVERAGE);
+
+            String sGenreIds = getColumnString(cursor, DatabaseContract.FavouriteTable.GENRE_IDS);
+            String[] split = sGenreIds.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
+            this.genreIds = new int[split.length];
+            for (int i = 0; i < split.length; i++) {
+                this.genreIds[i] = Integer.parseInt(split[i]);
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String sReleaseDate = getColumnString(cursor, DatabaseContract.FavouriteTable.RELEASE_DATE);
+            this.release_date = sdf.parse(sReleaseDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private MovieItem(Parcel parcel) {
+        this.id = parcel.readInt();
+        this.title = parcel.readString();
+        this.overview = parcel.readString();
+        this.release_date = new Date(parcel.readLong());
+        this.posterPath = parcel.readString();
+        this.backdropPath = parcel.readString();
+        this.genreIds = parcel.createIntArray();
+        this.voteAverage = parcel.readFloat();
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -181,7 +213,7 @@ public class MovieItem implements Parcelable {
 
         @Override
         public MovieItem[] newArray(int size) {
-             return new MovieItem[size];
+            return new MovieItem[size];
         }
     };
 }
