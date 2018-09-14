@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -46,6 +47,28 @@ public class MovieItem implements Parcelable {
         }
     }
 
+    public MovieItem(int id, String title, String overview, String releaseDate, String posterPath, String backdropPath, String genreIds, float voteAverage) {
+        try {
+            this.id = id;
+            this.title = title;
+            this.overview = overview;
+            this.posterPath = posterPath;
+            this.backdropPath = backdropPath;
+            this.voteAverage = voteAverage;
+
+            String[] split = genreIds.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
+            this.genreIds = new int[split.length];
+            for (int i = 0; i < split.length; i++) {
+                this.genreIds[i] = Integer.parseInt(split[i]);
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            this.release_date = sdf.parse(releaseDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     private MovieItem(Parcel parcel) {
         this.id = parcel.readInt();
         this.title = parcel.readString();
@@ -57,9 +80,17 @@ public class MovieItem implements Parcelable {
         this.voteAverage = parcel.readFloat();
     }
 
+    public int getMovieId() {
+        return this.id;
+    }
+
     public String getMovieUrl() {
         String MOVIE_PATH = "http:/https://www.themoviedb.org/movie/";
         return MOVIE_PATH + this.id;
+    }
+
+    public String getPosterPath() {
+        return this.posterPath;
     }
 
     public String getPosterUrl() {
@@ -68,6 +99,10 @@ public class MovieItem implements Parcelable {
             return POSTER_PATH + this.posterPath;
         }
         return "https://via.placeholder.com/185x278?text=Poster+not+available";
+    }
+
+    public String getBackdropPath() {
+        return this.backdropPath;
     }
 
     public String getBackdropUrl() {
@@ -101,8 +136,20 @@ public class MovieItem implements Parcelable {
         return sdf.format(this.release_date);
     }
 
+    public String getOriginalReleaseDate() {
+        if (this.release_date == null) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return sdf.format(this.release_date);
+    }
+
     public int[] getGenreIds() {
         return this.genreIds;
+    }
+
+    public String getGenreIdsAsString() {
+        return Arrays.toString(genreIds);
     }
 
     public float getVoteAverage() {
