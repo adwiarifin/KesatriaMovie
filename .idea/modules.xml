@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KesatriaMovie.iml" filepath="$PROJECT_DIR$/KesatriaMovie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/favouriteapp/favouriteapp.iml" filepath="$PROJECT_DIR$/favouriteapp/favouriteapp.iml" />
     </modules>
   </component>
 </project>

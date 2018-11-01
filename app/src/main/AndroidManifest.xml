@@ -3,8 +3,13 @@
     package="com.kesatriakeyboard.kesatriamovie">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="com.kesatriakeyboard.kesatriamovie.READ_DATABASE" android:protectionLevel="normal"/>
-    <permission android:name="com.kesatriakeyboard.kesatriamovie.WRITE_DATABASE" android:protectionLevel="normal"/>
+
+    <permission
+        android:name="com.kesatriakeyboard.kesatriamovie.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.kesatriakeyboard.kesatriamovie.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.kesatriakeyboard.kesatriamovie"
             android:name=".database.FavouriteProvider"
+            android:authorities="com.kesatriakeyboard.kesatriamovie"
             android:exported="true"
             android:readPermission="com.kesatriakeyboard.kesatriamovie.READ_DATABASE"
             android:writePermission="com.kesatriakeyboard.kesatriamovie.WRITE_DATABASE" />
