@@ -16,8 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.kesatriakeyboard.kesatriamovie.BuildConfig;
 import com.kesatriakeyboard.kesatriamovie.R;
 import com.kesatriakeyboard.kesatriamovie.tool.Helper;
+import com.uxcam.UXCam;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        UXCam.startWithKey(BuildConfig.UXCAM_KEY);
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

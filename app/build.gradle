@@ -13,6 +13,7 @@ android {
         // Please ensure you have a valid API KEY for themoviedb.org to use this app
         // A valid key will need to be entered
         buildConfigField("String", "API_KEY", API_KEY)
+        buildConfigField("String", "UXCAM_KEY", UXCAM_KEY)
     }
     buildTypes {
         release {
@@ -35,6 +36,7 @@ dependencies {
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.uxcam:uxcam:3.0.1@aar'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
